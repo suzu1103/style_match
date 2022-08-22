@@ -6,11 +6,85 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Sawarabi+Gothic" rel="stylesheet">
   </head>
 
   <body>
-    <%= yield %>
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="image navbar-brand p-3 h-50" href="/"><%= image_tag 'style_match.png', width: '50%', height: 'auto' %></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+            <% if admin_signed_in? %>
+              <li class="nav-item">
+                <%= link_to "会員一覧", admin_customers_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "診断", admin_diagnoses_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' %>
+              </li>
+            <% elsif customer_signed_in? %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "マイページ", my_page_customers_path(current_customer.id), class: 'nav-link text-dark' %>
+              </li>
+              </li>
+              <li class="nav-item">
+                <%= link_to "新規投稿", new_post_path, class: 'nav-link text-dark' %>
+              </li>
+              </li>
+              <li class="nav-item">
+                <%= link_to "診断", new_diagnosis_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: 'nav-link text-dark' %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to "About", about_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "新規登録", new_customer_registration_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログイン", new_customer_session_path, class: 'nav-link text-dark' %>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class = "container">
+        <%= yield %>
+      </div>
+    </main>
+
+    <footer class = "d-block bg-light mt-auto py-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <%= image_tag 'style_match.png', width: '40%', height: 'auto' %>
+            </div>
+            <div class="col-md-8">
+              <p>©️Style match</p>
+              <p>All right reserved</p>
+
+            </div>
+          </div>
+        </div>
+    </footer>
   </body>
 </html>

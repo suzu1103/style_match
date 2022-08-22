@@ -1,0 +1,45 @@
+<div class="row no-gutters">
+  <div class="col-md-8 mx-2 mx-sm-auto text-left shadow-lg rounded px-5 my-5">
+    <h4 class="text-dark text-center py-4 mb-0">新規登録</h4>
+
+    <p id="notice"><%= flash[:notice] %></p>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "public/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <label class = "col-md-4">氏名</label>
+        <%= f.text_field :name, autofocus: true %>
+      </div>
+
+      <div class="field">
+        <label class = "col-md-4">ユーザーネーム</label>
+        <%= f.text_field :user_name %>
+      </div>
+
+      <div class="field">
+        <label class = "col-md-4">メールアドレス</label>
+        <%= f.email_field :email, autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <label class = "col-md-4">パスワード(６文字以上)</label>
+        <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
+
+      <div class="field">
+        <label class = "col-md-4">パスワード(確認)</label>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+
+      <div class="actions text-center">
+        <%= f.submit "新規登録" %>
+      </div>
+    <% end %>
+
+    <div class = "text-center">
+      既に登録済の方は、<%= link_to "こちら", new_customer_session_path %>からログインしてください。
+    </div>
+
+  </div>
+</div>
