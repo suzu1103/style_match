@@ -35,8 +35,8 @@ Rails.application.routes.draw do
   # end
   # devise_for :admin
   # devise_for :customer
-  
-  
+
+
   root to: 'public/homes#top'
   get '/about' => "public/homes#about", as: "about"
   get '/search' => "public/searches#search"
@@ -53,7 +53,7 @@ Rails.application.routes.draw do
     resources :customers, only: [:show, :edit, :update]
     resources :diagnoses, only: [:index, :create, :edit, :update]
   end
-  
+
 
 
 
@@ -62,7 +62,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy]
       resources :favolites, only: [:create, :destroy]
     end
-    
+
     resource :customers, only: [:edit, :update] do
       collection do
         get 'feed' => "customers#index"
@@ -70,13 +70,13 @@ Rails.application.routes.draw do
         get 'confirm'
         patch 'withdraw'
       end
-  
+
       # resources :フォロー機能
-      
-    end  
-    
+
+    end
+
     resources :diagnoses, only: [:new,:index, :create]
-    
+
   end
 
 devise_for :customers, skip: [:passwords], controllers: {
@@ -88,6 +88,6 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
 
-  
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
