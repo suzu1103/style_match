@@ -1,0 +1,2 @@
+class DiagnosisTagRelation < ApplicationRecord
+end
