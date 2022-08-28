@@ -58,15 +58,14 @@ Rails.application.routes.draw do
 
 
   scope module: :public do
-    resources :posts, only: [:new, :create, :show, :edit, :update, :destroy] do
+    resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
       resources :favolites, only: [:create, :destroy]
     end
 
-    resource :customers, only: [:edit, :update] do
+    resources :customers, only: [:show, :edit, :update] do
       collection do
-        get 'feed' => "customers#index"
-        get 'my_page' => "customers#show"
+        get 'my_page'
         get 'confirm'
         patch 'withdraw'
       end
