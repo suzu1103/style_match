@@ -1,8 +1,8 @@
 class Public::CustomersController < ApplicationController
-  
+
   def my_page
     @customer = current_customer
-  end  
+  end
 
   def show
     @customer = Customer.find(params[:id])
@@ -24,6 +24,6 @@ class Public::CustomersController < ApplicationController
 
 
   def customer_params
-    params.require(:customer).permit(:name, :user_namet_name, :introduction)
+    params.require(:customer).permit(:name, :user_namet_name, :introduction, :profile_image)
   end
 end
