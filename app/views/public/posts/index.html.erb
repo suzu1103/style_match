@@ -8,7 +8,7 @@
             <%= image_tag post_image.get_image, width: '50', height: 'auto', class:"card-img-top"; %>
           <!--% end %>-->
           <div class="card-body">
-            <!--%= image_tag post_image.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>-->
+            <%= image_tag post_image.customer.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
             <p class="card-text"><%= post_image.introduction %></p>
             <p><%= post_image.updated_at.strftime('%Y/%m/%d %H:%M') %></p>
           </div>

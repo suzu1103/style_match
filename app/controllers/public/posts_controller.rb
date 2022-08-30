@@ -4,7 +4,7 @@ class Public::PostsController < ApplicationController
   end
 
   def create
-    @posts = Post.new(post_params)
+    @posts = current_customer.posts.build(post_params)
     if @posts.save
       redirect_to posts_path
     else
@@ -20,17 +20,17 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments
     @comment = Comment.new
   end
 
   def edit
   end
 
-
   private
 
   def post_params
-    params.require(:post).permit(:introduction, :image).merge(customer_id:current_customer.id)
+    params.require(:post).permit(:introduction, :image)
   end
 
   # def customer_params
