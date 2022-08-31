@@ -57,7 +57,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   namespace :admin do
     resources :posts, only: [:index, :show, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
-      resources :favolites, only: [:create, :destroy]
+      resources :favorites, only: [:create, :destroy]
     end
     resources :customers, only: [:show, :edit, :update]
     resources :diagnoses, only: [:index, :create, :edit, :update]
@@ -69,7 +69,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   scope module: :public do
     resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
-      resources :favolites, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
     end
 
     resources :customers, only: [:show, :edit, :update] do
