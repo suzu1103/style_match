@@ -74,14 +74,18 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 
     resources :customers, only: [:show, :edit, :update] do
       collection do
-        get 'my_page'
+        # get 'my_page'
         get 'confirm'
         patch 'withdraw'
       end
-
-      # resources :フォロー機能
-
+      resources :relationships, only: [:create, :destroy]
+      get 'followed'
+      get 'follower'
     end
+
+    # follow_relations
+    # post 'follow/:id' => 'follow_relations#follow', as: 'follow'
+    # post 'unfollow/:id' => 'follow_relations#unfollow', as: 'unfollow'
 
     resources :diagnoses, only: [:new,:index, :create]
 
