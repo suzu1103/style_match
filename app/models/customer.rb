@@ -9,8 +9,8 @@ class Customer < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   # フォローした、されたの関係
-  has_many :follower, class_name: "Follow_relation", foreign_key: "follower_id", dependent: :destroy
-  has_many :followed, class_name: "Follow_relation", foreign_key: "followed_id", dependent: :destroy
+  has_many :follower, class_name: "FollowRelation", foreign_key: "follower_id", dependent: :destroy
+  has_many :followed, class_name: "FollowRelation", foreign_key: "followed_id", dependent: :destroy
   # フォローしているユーザーやフォローされているユーザーの取得
   has_many :following_customer, through: :follower, source: :followed
   has_many :follower_customer, through: :followed, source: :follower

@@ -78,10 +78,14 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
         get 'confirm'
         patch 'withdraw'
       end
-      resources :relationships, only: [:create, :destroy]
-      get 'followed'
-      get 'follower'
+      resource :follow_relations, only: [:create, :destroy]
+        get 'followed' => 'follow_relations#followed', as: 'followed'
+        get 'follower' => 'follow_relations#follower', as: 'follower'
+        post 'follow/:id' => 'follow_relations#follow', as: 'follow'
+        post 'unfollow/:id' => 'follow_relations#unfollow', as: 'unfollow'      
     end
+
+
 
     # follow_relations
     # post 'follow/:id' => 'follow_relations#follow', as: 'follow'

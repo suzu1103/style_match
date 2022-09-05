@@ -5,16 +5,34 @@
      <p><%= link_to "プロフィール編集", edit_customer_path(@customer) %></p>
     <% end %>
 
-    <p><%= @customer.user_name %></p>
-    <p><%= "フォロー数: #{@customer.follower.count}" %></p>
-    <p><%= "フォロワー数: #{@customer.followed.count}" %></p>
+    <p><%= "フォロー #{@customer.follower.count}" %> | <%= "フォロワー #{@customer.followed.count}" %></p>
+    <p></p>
     <% unless @customer == current_customer %>
       <% if current_customer.following?(@customer) %>
-        <%= link_to 'フォロー外す', unfollow_path(@customer.id), method: :POST %>
+        <%= link_to 'フォロー中', customer_unfollow_path(@customer.id), method: :POST %>
       <% else %>
-        <%= link_to 'フォローする', follow_path(@customer.id), method: :POST %>
+        <%= link_to 'フォローする', customer_follow_path(@customer.id), method: :POST %>
       <% end %>
     <% end %>
 
     <%= @customer.introduction %>
+</div>
+
+<!--投稿者の投稿一覧-->
+<div class = "row">
+  <% @posts.each do |post_image| %>
+    <div class="card-deck">
+      <div class="card" style = "width:250px">
+
+          <%= link_to post_path(post_image.id) do %>
+            <%= image_tag post_image.get_image, width: '50', height: 'auto', class:"card-img-top"; %>
+          <% end %>
+          <div class="card-body">
+            <p class="card-text"><%= post_image.introduction %></p>
+            <p><%= post_image.updated_at.strftime('%Y/%m/%d %H:%M') %></p>
+          </div>
+
+      </div>
+    </div>
+  <% end %>
 </div>
