@@ -85,12 +85,6 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
         post 'unfollow/:id' => 'follow_relations#unfollow', as: 'unfollow'      
     end
 
-
-
-    # follow_relations
-    # post 'follow/:id' => 'follow_relations#follow', as: 'follow'
-    # post 'unfollow/:id' => 'follow_relations#unfollow', as: 'unfollow'
-
     resources :diagnoses, only: [:new,:index, :create]
 
   end
