@@ -1,2 +1,35 @@
-<h1>Admin::Diagnoses#edit</h1>
-<p>Find me in app/views/admin/diagnoses/edit.html.erb</p>
+<div class = "row">
+  <div class = "col-md-10">
+    <h2>診断結果編集</h2>
+    <%= form_with model: @diagnosis, url:admin_diagnosis_path, method: :patch do |f| %>
+      <% if @diagnosis.errors.any? %>
+        <%= @diagnosis.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @diagnosis.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <div>
+        <%= f.label :name, style: "display: block" %>
+        <%= f.text_field :name %>
+      </div>
+
+      <div class='form-group'>
+        <%= f.collection_check_boxes(:diagnosis_tag_ids, DiagnosisTag.all, :id, :name) do |tag| %>
+          <div class='form-check'>
+            <%= tag.label class: 'form-check-label' do %>
+              <%= tag.check_box class: 'form-check-input' %>
+              <%= tag.text %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <%= f.submit '編集' %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

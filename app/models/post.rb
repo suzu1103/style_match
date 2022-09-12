@@ -3,6 +3,8 @@ class Post < ApplicationRecord
   belongs_to :customer
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :post_tag_relations, dependent: :destroy
+  has_many :post_tags, through: :post_tag_relations
 
 
   def favorited_by?(customer)
@@ -17,4 +19,25 @@ class Post < ApplicationRecord
     end
     image
   end
+
+  def save_tag(sent_tags)
+  # タグが存在していれば、タグの名前を配列として全て取得
+    current_tags = self.post_tag_relations.pluck(:post_tag_names) unless self.post_tag_relations.nil?
+    # 現在取得したタグから送られてきたタグを除いてoldtagとする
+    old_tags = current_tags - sent_tags
+    # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
+    new_tags = sent_tags - current_tags
+
+    # 古いタグを消す
+    old_tags.each do |old|
+      self.post_tag_relations.delete　PostTag.find_by(name: old)
+    end
+
+    # 新しいタグを保存
+    new_tags.each do |new|
+      new_post_tag_relation = PostTag.find_or_create_by(name: new)
+      self.post_tag_relations << new_post_tag_relation
+   end
+  end
+
 end

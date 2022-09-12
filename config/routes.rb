@@ -60,7 +60,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
       resources :favorites, only: [:create, :destroy]
     end
     resources :customers, only: [:show, :edit, :update]
-    resources :diagnoses, only: [:index, :create, :edit, :update]
+    resources :diagnoses, only: [:index, :create, :edit, :update, :destroy]
   end
 
 
@@ -82,7 +82,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
         get 'followed' => 'follow_relations#followed', as: 'followed'
         get 'follower' => 'follow_relations#follower', as: 'follower'
         post 'follow/:id' => 'follow_relations#follow', as: 'follow'
-        post 'unfollow/:id' => 'follow_relations#unfollow', as: 'unfollow'      
+        post 'unfollow/:id' => 'follow_relations#unfollow', as: 'unfollow'
     end
 
     resources :diagnoses, only: [:new,:index, :create]
