@@ -28,16 +28,16 @@ class Post < ApplicationRecord
     # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
     new_tags = sent_tags - current_tags
 
-    # 古いタグを消す
+    # 古いタグのリレーションを消す
     old_tags.each do |old|
       self.post_tag_relations.delete　PostTag.find_by(name: old)
     end
 
-    # 新しいタグを保存
+    # 新しいタグを検索、なければ作る。新しいタグのリレーションを作成。
     new_tags.each do |new|
-      new_post_tag_relation = PostTag.find_or_create_by(name: new)
-      self.post_tag_relations << new_post_tag_relation
-   end
+      new_post_tag = PostTag.find_or_create_by(name: new)
+      PostTagRelation.create(post_id:self.id,post_tag_id:new_post_tag.id)
+    end
   end
 
 end
