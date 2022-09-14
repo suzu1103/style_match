@@ -18,25 +18,30 @@ class Public::PostsController < ApplicationController
 
   def index
     @posts = Post.page(params[:page])
-    @tag_list = DiagnosisTag.all
+    # @tag_list = DiagnosisTag.all
   end
 
   def show
     @post = Post.find(params[:id])
     @comments = @post.comments
     @comment = Comment.new
+    @post_tags = @post.post_tags
   end
 
   def edit
     @post = Post.find(params[:id])
-    @tag_list = @post.tag_list.pluck(:name).join(",")
+    @tag_list = @post.post_tags.pluck(:name).join(",")
   end
 
   def update
     @post = Post.find(params[:id])
-    tag_list = params[:post][:post_tag_id].split(",")
+    tag_list = params[:post][:post_tag_names].split(",")
     if @post.update(post_params)
-      @post.update_tags(tag_list)
+      @old_relations = PostTag.where(post_id: @post.id)
+      @old_relations.each do |relation|
+        relation.delete
+      end
+      @post.save_tag(tag_list)
       redirect_to post_path(post.id)
     else
       render :edit

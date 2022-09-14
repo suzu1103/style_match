@@ -28,7 +28,12 @@
           <% end %>
 
           <% if @post.customer == current_customer %>
-            <span> ｜ </span><%= link_to "削除", post_path(@post), class:"text-dark", method: :delete %>
+            <span>｜</span><%= link_to "編集", edit_post_path(@post), class:"text-dark" %>
+            <span>｜</span><%= link_to "削除", post_path(@post), class:"text-dark", method: :delete %>
+          <% end %>
+          <% @post_tags.each do |tag| %>
+            <%= tag.name %>
+            <!--<#%= "(#{tag.posts.count})" %>-->
           <% end %>
         </div>
       </div>
