@@ -37,12 +37,12 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     tag_list = params[:post][:post_tag_names].split(",")
     if @post.update(post_params)
-      @old_relations = PostTag.where(post_id: @post.id)
+      @old_relations = PostTagRelation.where(post_id: @post.id)
       @old_relations.each do |relation|
         relation.delete
       end
       @post.save_tag(tag_list)
-      redirect_to post_path(post.id)
+      redirect_to post_path(@post.id)
     else
       render :edit
     end
