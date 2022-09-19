@@ -1,2 +1,31 @@
-<h1>診断ページ</h1>
-<p>Find me in app/views/public/diagnoses/new.html.erb</p>
+<h2>診断ページ</h2>
+<% tags = DiagnosisTag.select(&:name) %>
+<% questions = [
+  {title: "髪色は？", number: 2},
+  {title: "目の色は？", number: 4},
+  {title: "肌の色は？", number: 2},
+  {title: "唇の色は？", number: 4},
+  {title: "似合う服の色は？", number: 2},
+  {title: "肌になじむアクセサリーは?", number: 2},
+  {title: "体の重心は？", number: 3},
+  {title: "首から肩にかけての特徴は？", number: 3},
+  {title: "手の特徴は？", number: 3},
+  {title: "ウエストの位置は？", number: 3},
+  {title: "脚の特徴は？", number: 3},
+  {title: "肌の感触は?", number: 3},
+] %>
+<% question_id = 1 %>
+
+<%= form_tag diagnoses_index_path, method: :get do %>
+  <% questions.each do |q| %>
+    <div class="question-container">
+      <%= q[:title] %>
+      <% tags.shift(q[:number]).each do |t| %>
+        <input type="checkbox" id="checkbox<%= question_id %>" name="answer[]" value="<%= question_id %>" >
+        <label for="checkbox<%= question_id %>"><%= t.name %></label>
+        <% question_id += 1 %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= submit_tag %>
+<% end %>
