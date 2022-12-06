@@ -14,9 +14,9 @@
   {title: "脚の特徴は？", number: 3},
   {title: "肌の感触は?", number: 3},
 ] %>
-<% question_id = 1 %>
+<% question_id = DiagnosisTag.first.id %>
 
-<%= form_tag diagnoses_index_path, method: :get do %>
+<%= form_tag diagnoses_path, method: :get do %>
   <% questions.each do |q| %>
     <div class="question-container">
       <%= q[:title] %>
