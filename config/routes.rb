@@ -74,8 +74,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 
     resources :customers, only: [:show, :edit, :update] do
       collection do
-        # get 'my_page'
-        get 'confirm'
+        # get 'confirm'
         patch 'withdraw'
       end
       resource :follow_relations, only: [:create, :destroy]

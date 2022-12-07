@@ -22,6 +22,14 @@ class Public::CustomersController < ApplicationController
     end
   end
 
+  def withdraw
+    @customer = Customer.find(current_customer.id)
+    @customer.update(is_deleted: true)
+    reset_session
+    flash[:notice] = "退会しました。またのご利用を心よりお待ちしております。"
+    redirect_to root_path
+  end
+
 
   def customer_params
     params.require(:customer).permit(:name, :user_namet_name, :introduction, :profile_image)

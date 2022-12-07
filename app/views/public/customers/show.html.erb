@@ -16,6 +16,11 @@
     <% end %>
 
     <%= @customer.introduction %>
+
+    <% if customer_signed_in? && @customer.id == current_customer.id %>
+    　<%= link_to "退会する", withdraw_customers_path, "data-confirm" => "本当に退会しますか？",  method: :patch, class: "btn btn-sm btn-outline-dark" %>
+    <% end %>
+
 </div>
 
 <!--投稿者の投稿一覧-->
