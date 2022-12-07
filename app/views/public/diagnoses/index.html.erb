@@ -7,9 +7,9 @@
 <% @mached_diagnoses.each do |diagnosis| %>
   <div class="diagnosis-container">
     タイプ:<%= diagnosis.name %><br>
-    説明:<%= diagnosis.discription %><br>
+    <!--説明:<= diagnosis.discription %><br>-->
     タグ:
-    <% diagnosis.tags.each do |tag| %>
+    <% diagnosis.diagnosis_tags.each do |tag| %>
       <%= tag.name %>
     <% end %>
   </div>

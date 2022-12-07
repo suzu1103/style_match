@@ -11,7 +11,7 @@ class Public::DiagnosesController < ApplicationController
 
     diagnoses.each do |diagnosis|
       tmp_mach_tag_count = 0
-      diagnosis.tags.each do |tag|
+      diagnosis.diagnosis_tags.each do |tag|
         if selected_tag_ids&.include?(tag.id.to_s)
           tmp_mach_tag_count = tmp_mach_tag_count + 1
         end
