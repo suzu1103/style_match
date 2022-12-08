@@ -4,6 +4,9 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  def active_for_authentication?
+    super && (self.is_deleted == false)
+  end
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
