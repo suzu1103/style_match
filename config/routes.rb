@@ -48,10 +48,12 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 
   root to: 'public/homes#top'
   get '/about' => "public/homes#about", as: "about"
-  get '/search' => "public/searches#search"
+  # get '/search' => "public/searches#search"
 
   get '/admin' => "admin/homes#top", as: "admin"
-  get '/admin/search' => "admin/searches#search"
+  # get '/admin/search' => "admin/searches#search"
+
+  get "search" => "searches#search"
 
 
   namespace :admin do
