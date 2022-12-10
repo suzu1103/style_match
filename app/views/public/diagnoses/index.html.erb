@@ -1,2 +1,16 @@
-<h1>Public::Diagnoses#index</h1>
-<p>Find me in app/views/public/diagnoses/index.html.erb</p>
+<h2>診断結果</h2>
+<%#= params[:answer] %>
+
+マッチ度：
+<%= @mach_tag_count.to_f / params[:answer].length.to_f * 100 %> %
+
+<% @mached_diagnoses.each do |diagnosis| %>
+  <div class="diagnosis-container">
+    タイプ:<%= diagnosis.name %><br>
+    <!--説明:<= diagnosis.discription %><br>-->
+    タグ:
+    <% diagnosis.diagnosis_tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %>
+  </div>
+<% end %>

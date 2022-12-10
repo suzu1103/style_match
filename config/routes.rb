@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+devise_for :customers, skip: [:passwords], controllers: {
+  registrations: "public/registrations",
+  sessions: 'public/sessions'
+}
+
+devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
+  sessions: "admin/sessions"
+}
+
   # namespace :public do
   #   get 'homes/top'
   #   get 'homes/about'
@@ -35,59 +44,54 @@ Rails.application.routes.draw do
   # end
   # devise_for :admin
   # devise_for :customer
-  
-  
+
+
   root to: 'public/homes#top'
   get '/about' => "public/homes#about", as: "about"
-  get '/search' => "public/searches#search"
+  # get '/search' => "public/searches#search"
 
   get '/admin' => "admin/homes#top", as: "admin"
-  get '/admin/search' => "admin/searches#search"
+  # get '/admin/search' => "admin/searches#search"
+
+  get "search" => "searches#search"
 
 
   namespace :admin do
     resources :posts, only: [:index, :show, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
-      resources :favolites, only: [:create, :destroy]
+      resources :favorites, only: [:create, :destroy]
     end
     resources :customers, only: [:show, :edit, :update]
-    resources :diagnoses, only: [:index, :create, :edit, :update]
+    resources :diagnoses, only: [:index, :create, :edit, :update, :destroy]
   end
-  
+
 
 
 
   scope module: :public do
-    resources :posts, only: [:new, :create, :show, :edit, :update, :destroy] do
+    resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
-      resources :favolites, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
     end
-    
-    resource :customers, only: [:edit, :update] do
+
+    resources :customers, only: [:show, :edit, :update] do
       collection do
-        get 'feed' => "customers#index"
-        get 'my_page' => "customers#show"
-        get 'confirm'
+        # get 'confirm'
         patch 'withdraw'
       end
-  
-      # resources :フォロー機能
-      
-    end  
-    
-    resources :diagnoses, only: [:new,:index, :create]
-    
+      resource :follow_relations, only: [:create, :destroy]
+        get 'followed' => 'follow_relations#followed', as: 'followed'
+        get 'follower' => 'follow_relations#follower', as: 'follower'
+        post 'follow/:id' => 'follow_relations#follow', as: 'follow'
+        post 'unfollow/:id' => 'follow_relations#unfollow', as: 'unfollow'
+    end
+
+    resources :diagnoses, only: [:new, :index, :create]
+
   end
 
-devise_for :customers, skip: [:passwords], controllers: {
-  registrations: "public/registrations",
-  sessions: 'public/sessions'
-}
 
-devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
-  sessions: "admin/sessions"
-}
 
-  
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

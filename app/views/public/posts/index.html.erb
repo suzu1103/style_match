@@ -1,0 +1,20 @@
+<h1>タイムライン</h1>
+<div class ="row">
+  <% @posts.each do |post| %>
+    <div class="card-deck">
+      <div class="card" style = "width:250px">
+
+          <%= link_to post_path(post.id) do %>
+            <%= image_tag post.get_image, width: '50', height: 'auto', class:"card-img-top"; %>
+          <% end %>
+          <div class="card-body">
+            <%= image_tag post.customer.get_profile_image(100,100), class:"mt-3 my-circle"; %>
+            <p class="card-text"><%= post.introduction %></p>
+            <p><%= post.post_tags.map(&:name).join(",") %></p>
+            <p><%= post.updated_at.strftime('%Y/%m/%d %H:%M') %></p>
+          </div>
+
+      </div>
+    </div>
+  <% end %>
+</div>

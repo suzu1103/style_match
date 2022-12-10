@@ -1,2 +1,13 @@
-<h1>Public::Homes#about</h1>
-<p>Find me in app/views/public/homes/about.html.erb</p>
+<div class = "text-center pt-2">
+    <h1>About</h1>
+    <div class = "py-3">
+      このアプリでは、パーソナル診断をもとに、<br>
+      あなたに似合うコーディネートを見つけたり、<br>
+      シェアしたりできます。<br>
+    </div>
+    <h3>Let's enjoy a fashion!</h3>
+    <div class = "pt-3">
+      <%= link_to "新規登録", new_customer_registration_path, class: 'btn btn-outline-dark' %>
+      <%= link_to "ログイン", new_customer_session_path, class: 'btn btn-outline-dark' %>
+    </div>
+</div>

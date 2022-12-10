@@ -1,2 +1,55 @@
-<h1>Admin::Diagnoses#index</h1>
-<p>Find me in app/views/admin/diagnoses/index.html.erb</p>
+<div class = "row">
+  <div class = "col-md-12">
+    <h2>診断結果作成フォーム</h2>
+    <%= form_with model: @diagnosis, url:admin_diagnoses_path, method: :post do |f| %>
+      <% if @diagnosis.errors.any? %>
+        <%= @diagnosis.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @diagnosis.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <div>
+        <%= f.label :name, style: "display: block" %>
+        <%= f.text_field :name %>
+      </div>
+
+      <div class='form-group'>
+        <%= f.collection_check_boxes(:diagnosis_tag_ids, DiagnosisTag.all, :id, :name) do |tag| %>
+          <div class='form-check'>
+            <%= tag.label class: 'form-check-label' do %>
+              <%= tag.check_box class: 'form-check-input' %>
+              <%= tag.text %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <%= f.submit '登録' %>
+      </div>
+    <% end %>
+
+    <table class ="table mt-5">
+      <tr>
+        <thead>
+          <th>診断結果名</th>
+          <th>タグ</th>
+          <th></th>
+        </thead>
+        <% @diagnoses.each do |diagnoses| %>
+          <tbody>
+            <td><%= diagnoses.name %></td>
+            <td><%= diagnoses.diagnosis_tags.pluck(:name).join(",") %></td>
+            <td>
+              <%= link_to "編集", edit_admin_diagnosis_path(diagnoses.id), class:"btn btn-sm btn-outline-dark" %>
+              <%= link_to "削除", admin_diagnosis_path(diagnoses.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-sm btn-outline-dark" %>
+            </td>
+          </tbody>
+        <% end %>
+      </tr>
+    </table>
+
+  </div>
+</div>

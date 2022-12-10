@@ -21,11 +21,21 @@
             <span class="navbar-toggler-icon"></span>
           </button>
 
+          <div class="search_form">
+            <%= form_with url: search_path, local: true, method: :get do |f| %>
+              <%= f.text_field :word %>
+              <%= f.select :range, options_for_select([['User'], ['Book']]) %>
+              <%#= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+              <%= f.submit "検索", class: "btn btn-outline-info btn-sm" %>
+            <% end %>
+          </div>
+
+
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
             <% if admin_signed_in? %>
               <li class="nav-item">
-                <%= link_to "会員一覧", admin_customers_path, class: 'nav-link text-dark' %>
+                <%= link_to "会員一覧", admin_path, class: 'nav-link text-dark' %>
               </li>
               <li class="nav-item">
                 <%= link_to "診断", admin_diagnoses_path, class: 'nav-link text-dark' %>
@@ -36,7 +46,10 @@
             <% elsif customer_signed_in? %>
               </li>
               <li class="nav-item">
-                <%= link_to "マイページ", my_page_customers_path(current_customer.id), class: 'nav-link text-dark' %>
+                <%= link_to "タイムライン", posts_path(current_customer.id), class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "マイページ", customer_path(current_customer.id), class: 'nav-link text-dark' %>
               </li>
               </li>
               <li class="nav-item">

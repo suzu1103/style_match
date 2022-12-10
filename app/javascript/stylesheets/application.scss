@@ -1,5 +1,17 @@
 @import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
  header, body, footer {
    font-family: 'Sawarabi Gothic', serif;
  }
+
+ main {
+  height: 5000px;
+}
+
+.my-circle {
+    border-radius: 50% !important;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
